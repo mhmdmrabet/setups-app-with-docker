@@ -48,3 +48,12 @@ server.listen(80, "0.0.0.0", (err, address) => {
   }
   console.log(`🚀 Server ready at: ${address}`);
 });
+
+process.addListener("SIGINT", () => {
+  server.close((error) => {
+    if(error){
+      process.exit(1)
+    } 
+    
+  })
+});

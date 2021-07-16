@@ -8,20 +8,21 @@ services:
   api:
     build:
       context: ./api
-      dockerfile: Dockerfile
-    env_file:
-      - ./api/.env
+      dockerfile: Dockerfile.prod
+    environment:
+      - DATABASE_URL_PROD
     restart: unless-stopped
-    depends_on:
-      - db
+    #depends_on:
+      #- db
   db:
     image: mongo
     volumes:
       - type: volume
         source: dbprod
         target: /data/db
-    env_file:
-      - ./db/.env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
     restart: unless-stopped
   reverse-proxy:
     build:

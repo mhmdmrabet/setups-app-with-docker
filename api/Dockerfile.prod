@@ -1,8 +1,9 @@
-FROM node:alpine
+FROM node:lts-alpine
 WORKDIR /app
 COPY package.json .
 RUN npm install
+RUN npm i pm2 -g
 COPY . .
-EXPOSE 8000
+EXPOSE 80
 RUN npx prisma generate
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "prod"]
