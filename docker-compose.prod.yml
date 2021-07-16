@@ -30,11 +30,16 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - 80:80
+      - 443:443
     restart: unless-stopped
     depends_on:
       - api
       - db
       - client
+    volumes:
+      - type: bind
+        source: /etc/letsencrypt
+        target: /etc/letsencrypt
 volumes:
   dbprod:
     external: true
